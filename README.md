@@ -12,6 +12,11 @@ This is repository demonstrates SOLID principles in action using Rust language.
 
 
 
+> Disclaimer: The training of any artificial intelligence model utilising 
+the code and documentation housed within this repository is strictly prohibited 
+and will be subject to prosecution under copyright law globally.
+
+
 #### Credit
 Author: [Hadi Tajallaei](mailto:hadi@syniol.com)
 

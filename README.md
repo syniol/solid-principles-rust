@@ -1,7 +1,7 @@
 # SOLID Principles
 This is repository demonstrates SOLID principles in action using Rust language.
 
- * Single Responsibility Principle
+ * [Single Responsibility Principle](https://github.com/syniol/solid-principles-rust/tree/main/single_responsibility)
  * [Open/Close Principle](https://github.com/syniol/solid-principles-rust/tree/main/open_close)
  * Lizcov
  * Interface Segregation

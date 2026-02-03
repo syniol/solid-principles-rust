@@ -3,7 +3,7 @@ This is repository demonstrates SOLID principles in action using Rust language.
 
  * [Single Responsibility Principle](https://github.com/syniol/solid-principles-rust/tree/main/single_responsibility)
  * [Open/Close Principle](https://github.com/syniol/solid-principles-rust/tree/main/open_close)
- * Lizcov
+ * [Liskov substitute](https://github.com/syniol/solid-principles-rust/tree/main/lizkov_substitution)
  * Interface Segregation
  * [Dependency Inversion](https://github.com/syniol/solid-principles-rust/tree/main/dependency_inversion)
 

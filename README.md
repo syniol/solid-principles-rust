@@ -5,7 +5,7 @@ This is repository demonstrates SOLID principles in action using Rust language.
  * [Open/Close Principle](https://github.com/syniol/solid-principles-rust/tree/main/open_close)
  * Lizcov
  * Interface Segregation
- * Dependency Inversion
+ * [Dependency Inversion](https://github.com/syniol/solid-principles-rust/tree/main/dependency_inversion)
 
 
 ## Motivation

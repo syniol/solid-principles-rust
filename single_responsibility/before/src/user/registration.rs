@@ -35,7 +35,7 @@ impl Registration {
             ));
         }
 
-        if date_span.unwrap().get_years() <= MINIMUM_AGE_LIMIT {
+        if date_span.unwrap().get_years() < MINIMUM_AGE_LIMIT {
             return Err(std::io::Error::new(
                 ErrorKind::Unsupported,
                 format!("you need to be at least {} years", MINIMUM_AGE_LIMIT),
@@ -61,7 +61,7 @@ fn test_register_user_ok() {
 
     let res = new().register_user(&User{
         date_of_birth: Zoned::now()
-            .checked_sub((MINIMUM_AGE_LIMIT+1).years())
+            .checked_sub(MINIMUM_AGE_LIMIT.years())
             .unwrap()
             .date()
             .to_string()

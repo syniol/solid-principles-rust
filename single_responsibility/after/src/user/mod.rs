@@ -1,3 +1,2 @@
-pub mod age_eligibility;
-pub mod user;
 pub mod registration;
+pub mod user;

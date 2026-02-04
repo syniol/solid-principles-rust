@@ -1,12 +1,12 @@
-use std::io::{Error, ErrorKind};
-use jiff::{Error as JiffError, Unit, Zoned};
-use jiff::civil::{DateTime};
 use crate::user::user::User;
+use jiff::civil::DateTime;
+use jiff::{Error as JiffError, Unit, Zoned};
+use std::io::{Error, ErrorKind};
 
 pub struct Registration {}
 
 pub fn new() -> Registration {
-    Registration{}
+    Registration {}
 }
 
 static MINIMUM_AGE_LIMIT: i16 = 18;
@@ -39,7 +39,7 @@ impl Registration {
             return Err(std::io::Error::new(
                 ErrorKind::Unsupported,
                 format!("you need to be at least {} years", MINIMUM_AGE_LIMIT),
-            ))
+            ));
         }
 
         return Ok(());
@@ -48,7 +48,7 @@ impl Registration {
     pub fn register_user(&self, user: &User) -> Result<String, Error> {
         let is_age_valid = self.validate_age(user.date_of_birth);
         if is_age_valid.is_err() {
-            return Err(is_age_valid.unwrap_err())
+            return Err(is_age_valid.unwrap_err());
         }
 
         Ok(format!("Successfully registered user: {}", user.name).to_string())
@@ -57,9 +57,9 @@ impl Registration {
 
 #[test]
 fn test_register_user_ok() {
-    use jiff::{ToSpan};
+    use jiff::ToSpan;
 
-    let res = new().register_user(&User{
+    let res = new().register_user(&User {
         date_of_birth: Zoned::now()
             .checked_sub(MINIMUM_AGE_LIMIT.years())
             .unwrap()
@@ -79,9 +79,9 @@ fn test_register_user_ok() {
 
 #[test]
 fn test_register_user_age_error() {
-    use jiff::{ToSpan};
+    use jiff::ToSpan;
 
-    let res = new().register_user(&User{
+    let res = new().register_user(&User {
         date_of_birth: Zoned::now()
             .checked_sub((MINIMUM_AGE_LIMIT - 1).years())
             .unwrap()
@@ -99,7 +99,7 @@ fn test_register_user_age_error() {
 
 #[test]
 fn test_register_user_age_parse_error() {
-    let res = new().register_user(&User{
+    let res = new().register_user(&User {
         date_of_birth: "7612362178",
         name: "Test User",
     });

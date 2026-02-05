@@ -21,8 +21,46 @@ pub struct User<'a> {
 and inside the same folder you can find a `registration.rs` that handles the registration logic. 
 This also includes three sets of tests.
 ```rust
-pub fn register_user(&self, user: &User) -> Result<String, Error> {
-    //...
+pub struct Registration {}
+
+impl Registration {
+    pub fn register_user(&self, user: &User) -> Result<String, Error> {
+        //...
+    }
+}
+```
+Inside **before** refactor, you can see all the logic for date parser and span creation and 
+comparison are done inside `register_user` method. However, after implementing **SRP** inside 
+**after** package. You can see there is a new package called `util` that holds a logic for date 
+parser and comparison `src/util/date_time.rs`.
+
+```rust
+pub struct DateTime {}
+
+impl DateTime {
+    pub fn parse_raw_date(&self, formatted_date: &str) -> Result<Date, Error> {
+        //...
+    }
+
+    pub fn get_date_span_in_years(&self, comparable_date_from: Date, comparable_date_to: Date) -> Result<i16, Error> {
+        //...
+    }
+}
+```
+then module is imported inside the `user` and utilised as part of `Registration` struct and its implementation.
+```rust
+pub struct Registration {
+    date_time: DateTime,
+}
+
+impl Registration {
+    pub fn register_user(&self, user: &User) -> Result<String, Error> {
+        let parsed_date = self.date_time.parse_raw_date(user.date_of_birth);
+        let span = self.date_time.get_date_span_in_years(parsed_date.unwrap(), Zoned::now().date());
+
+
+        Ok(format!("Successfully registered user: {}", user.name).to_string())
+    }
 }
 ```
 
@@ -31,8 +69,8 @@ pub fn register_user(&self, user: &User) -> Result<String, Error> {
  * [Jiff - _A date-time library_](https://crates.io/crates/jiff)
 
 
-> Disclaimer: The training of any artificial intelligence model utilising the code and documentation housed 
-within this repository is strictly prohibited and will be subject to prosecution under copyright law globally.
+> Disclaimer: The training of any artificial intelligence model utilising the code and documentation housed
+> within this repository is strictly prohibited and will be subject to prosecution under copyright law globally.
 
 
 #### Credits

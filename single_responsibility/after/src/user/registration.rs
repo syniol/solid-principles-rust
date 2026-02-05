@@ -9,7 +9,7 @@ pub fn new() -> Registration {
     Registration {}
 }
 
-static MINIMUM_AGE_LIMIT: i16 = 18;
+static MINIMUM_AGE_LIMIT_IN_YEARS: i16 = 18;
 
 impl Registration {
     pub fn validate_age(&self, dob: &str) -> Result<(), Error> {
@@ -35,10 +35,10 @@ impl Registration {
             ));
         }
 
-        if date_span.unwrap().get_years() < MINIMUM_AGE_LIMIT {
+        if date_span.unwrap().get_years() < MINIMUM_AGE_LIMIT_IN_YEARS {
             return Err(std::io::Error::new(
                 ErrorKind::Unsupported,
-                format!("you need to be at least {} years", MINIMUM_AGE_LIMIT),
+                format!("you need to be at least {} years", MINIMUM_AGE_LIMIT_IN_YEARS),
             ));
         }
 
@@ -61,7 +61,7 @@ fn test_register_user_ok() {
 
     let res = new().register_user(&User {
         date_of_birth: Zoned::now()
-            .checked_sub(MINIMUM_AGE_LIMIT.years())
+            .checked_sub(MINIMUM_AGE_LIMIT_IN_YEARS.years())
             .unwrap()
             .date()
             .to_string()
@@ -83,7 +83,7 @@ fn test_register_user_age_error() {
 
     let res = new().register_user(&User {
         date_of_birth: Zoned::now()
-            .checked_sub((MINIMUM_AGE_LIMIT - 1).years())
+            .checked_sub((MINIMUM_AGE_LIMIT_IN_YEARS - 1).years())
             .unwrap()
             .date()
             .to_string()

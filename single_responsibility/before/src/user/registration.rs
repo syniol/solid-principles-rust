@@ -12,8 +12,8 @@ pub fn new() -> Registration {
 static MINIMUM_AGE_LIMIT: i16 = 18;
 
 impl Registration {
-    pub fn validate_age(&self, dob: &str) -> Result<(), Error> {
-        let date_of_birth: Result<DateTime, JiffError> = dob.parse();
+    pub fn register_user(&self, user: &User) -> Result<String, Error> {
+        let date_of_birth: Result<DateTime, JiffError> = user.date_of_birth.parse();
         if date_of_birth.is_err() {
             eprintln!("{}", date_of_birth.unwrap_err().to_string());
             return Err(Error::new(
@@ -40,15 +40,6 @@ impl Registration {
                 ErrorKind::Unsupported,
                 format!("you need to be at least {} years", MINIMUM_AGE_LIMIT),
             ));
-        }
-
-        return Ok(());
-    }
-
-    pub fn register_user(&self, user: &User) -> Result<String, Error> {
-        let is_age_valid = self.validate_age(user.date_of_birth);
-        if is_age_valid.is_err() {
-            return Err(is_age_valid.unwrap_err());
         }
 
         Ok(format!("Successfully registered user: {}", user.name).to_string())
